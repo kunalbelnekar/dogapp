@@ -1,0 +1,5 @@
+Application specifications
+Coding source : https://www.callicoder.com/node-js-express-mongodb-restful-crud-api-tutorial/
+
+1. App will have CRUD APIs
+2. The response to the API calls will be JSON (achieved by app.json)
