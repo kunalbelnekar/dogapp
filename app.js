@@ -1,7 +1,7 @@
 const express = require ('express'); // Express framework
 const mongoose = require ('mongoose') // Mongoose to connect to MongoDB
 const dbConfig = require ('./config/dbConfig.js') // Config file for database parameters
-const dog = require('./models/Dog') // Dog database schema
+const dog = require('./models/dogschema') // Dog database schema
 const app = express(); // Initialize Express
 
 // Database connection
@@ -18,7 +18,13 @@ mongoose.connect(dbConfig.url, {useNewUrlParser: true,useUnifiedTopology: true},
 
 // Get the home route
 app.get('/', (req, res) => {
-    res.send('You have reached the get route for Dog App')
+    dog.find({}, (err, dog) => {
+        if (err){
+            console.log(err);
+        }else {
+            res.send(dog)
+        }
+    })
 })
 
 app.listen('3000', () => {
