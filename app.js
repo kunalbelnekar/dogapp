@@ -17,7 +17,7 @@ mongoose.connect(dbConfig.url, {useNewUrlParser: true,useUnifiedTopology: true},
 
 
 // Get the home route
-app.get('/', (req, res) => {
+app.get('/dogs', (req, res) => {
     dog.find({}, (err, dog) => {
         if (err){
             console.log(err);
@@ -25,6 +25,19 @@ app.get('/', (req, res) => {
             res.send(dog)
         }
     })
+})
+
+
+// Get a particular dog
+app.get('/dogs/:id', (req, res) => {
+    dog.findById(req.params.id, (err, dog) => {
+        res.send(dog);
+    })
+})
+
+// Redirect all default routes to home route
+app.get('/', (req,res) => {
+    res.redirect('/dogs')
 })
 
 app.listen('3000', () => {
