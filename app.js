@@ -3,6 +3,10 @@ const mongoose = require ('mongoose') // Mongoose to connect to MongoDB
 const dbConfig = require ('./config/dbConfig.js') // Config file for database parameters
 const dog = require('./models/dogschema') // Dog database schema
 const app = express(); // Initialize Express
+const bodyParser = require ('body-parser'); // Require body-parser to parse request body
+
+// Body Parser 
+app.use(bodyParser.urlencoded({extended: true})); // Initialize body-parser middleware
 
 // Database connection
 mongoose.Promise = global.Promise;
@@ -33,6 +37,16 @@ app.get('/dogs/:id', (req, res) => {
     dog.findById(req.params.id, (err, dog) => {
         res.send(dog);
     })
+})
+
+
+// Create a new dog
+app.post('/dogs/:id', (req, res) => {       
+    let newDog = req.body;
+    console.log(typeof(newDog), newDog)
+    // var newDog = new dog(data);
+    // console.log('Dog', newDog ,' is of type', typeOf(newDog));
+    res.send('You have reached the post route')
 })
 
 // Redirect all default routes to home route
